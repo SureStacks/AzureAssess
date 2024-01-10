@@ -31,7 +31,7 @@ This will give you the set of CSV that can be loaded into PowerBI
 
 The image below depicts the result in Power BI:
 
-![PowerBI Sample](./imG/PowerBI-NetworkAccess.png)
+![PowerBI Sample](./img/PowerBI-NetworkAccess.png)
 
 ## Information on Targeted Resources
 
