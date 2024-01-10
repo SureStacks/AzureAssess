@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+name: Publish AzureAssess
+
+on:
+  workflow_dispatch:
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+  publish:
+    # only windows can sign using powershell
+    runs-on: windows-latest
+
+    steps:
+    - name: Update version
+      shell: pwsh
+      run: |
+        # Get manifest
+        $psd1 = Get-ChildItem *.psd1
+        # Update version. Update-ModuleManifest reformats, use replace instead.
+        $manifest = Import-PowerShellDataFile $psd1.FullName
+        [version]$version = $Manifest.ModuleVersion
+        [version]$newversion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
+        ((Get-Content $psd1.FullName) -replace $version, $NewVersion) | Out-File $psd1.FullName -Encoding UTF8
+
+    - name: Commit Updated version
+      run: |
+          git config --global user.name 'Action Version Update'
+          git config --global user.email 'action-version-update@users.noreply.github.com'
+          git commit -am "Version Update"
+          git push
+        
+    - name: Sign
+      run: |
+        # Perpare output directory
+        $null = New-Item -Type Directory -Path C:\gallery\AzureAssess
+        # Copy scripts
+        Copy-Item -Path .\src -Destination C:\gallery\AzureAssess -Recurse -Force
+        # Get certificate
+        $buffer = [System.Convert]::FromBase64String($env:SIGNCERT)
+        $certificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($buffer, $env:CERTPASS)
+        # Sign files
+        $files = Get-ChildItem C:\gallery\AzureAssess -File -Recurse -Include *.ps1, *.psd1
+        foreach($file in $files) {
+          Set-AuthenticodeSignature -FilePath $file.FullName -HashAlgorithm SHA256 -Certificate $certificate -TimestampServer http://timestamp.digicert.com
+        }
+    
+    - name: Publish
+      run: | 
+        $publishparams = @{
+          Path              = "C:\gallery\AzureAssess"
+          NuGetApiKey       = $env:NUGETAPIKEY
+          SkipAutomaticTags = $true
+          Verbose           = $false
+          Whatif            = $false
+        }
+        Module-Publish @publishparams
+      
