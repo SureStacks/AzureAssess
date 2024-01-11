@@ -44,11 +44,17 @@ jobs:
         # Get certificate
         $buffer = [System.Convert]::FromBase64String($env:SIGNCERT)
         $certificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($buffer, $env:CERTPASS)
+        if ($certificate.Subject -eq $certificate.Issuer) {
+          # self sign - import certificate to trust
+          $store = New-Object System.Security.Cryptography.X509Certificates.X509Store "TrustedPublisher","LocalMachine"
+          $store.Open("ReadWrite")
+          $store.Add($certificate)
+          $store.Close()
+        }
         # Sign files
         $files = Get-ChildItem C:\gallery\AzureAssess -File -Recurse -Include *.ps1, *.psd1
         foreach($file in $files) {
-          Set-AuthenticodeSignature -FilePath $file.FullName -HashAlgorithm SHA256 -Certificate $certificate -TimestampServer http://timestamp.digicert.com
-          $error
+          Set-AuthenticodeSignature -FilePath $file.FullName -HashAlgorithm SHA256 -Certificate $certificate
         }
     
     - name: Publish
