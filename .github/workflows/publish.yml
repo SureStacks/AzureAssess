@@ -33,6 +33,9 @@ jobs:
           git push
         
     - name: Sign
+      env:
+        CERTPASS: ${{secrets.CERTPASS}}
+        SIGNCERT: ${{secrets.SIGNCERT}}
       run: |
         # Perpare output directory
         $null = New-Item -Type Directory -Path C:\gallery\AzureAssess
@@ -48,6 +51,8 @@ jobs:
         }
     
     - name: Publish
+      env:
+        NUGETAPIKEY: ${{secrets.NUGETAPIKEY}}
       run: | 
         $publishparams = @{
           Path              = "C:\gallery\AzureAssess"
