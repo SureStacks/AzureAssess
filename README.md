@@ -25,7 +25,7 @@ Get-AzureAsessResources -ManagementGroupNames <managementgroupnames>
 Resolve-AzureAssessPrivilegedIdentities
 ```
 
-This will give you the set of CSV that can be loaded into PowerBI
+This will give you the set of CSV that can be loaded into PowerBI template [``./assets/AzureResources.pbit``](./assets/Azyreresources.pbit)
 
 ## Power BI Example
 
