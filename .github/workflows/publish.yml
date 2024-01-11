@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+r# This is a basic workflow to help you get started with Actions
 name: Publish AzureAssess
 
 on:
@@ -19,7 +19,7 @@ jobs:
       shell: pwsh
       run: |
         # Get manifest
-        $psd1 = Get-ChildItem *.psd1
+        $psd1 = Get-ChildItem *.psd1 -Recurse
         # Update version. Update-ModuleManifest reformats, use replace instead.
         $manifest = Import-PowerShellDataFile $psd1.FullName
         [version]$version = $Manifest.ModuleVersion
