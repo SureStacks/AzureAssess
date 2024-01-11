@@ -46,7 +46,7 @@ jobs:
         $certificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($buffer, $env:CERTPASS)
         if ($certificate.Subject -eq $certificate.Issuer) {
           # self sign - import certificate to trust
-          $store = New-Object System.Security.Cryptography.X509Certificates.X509Store "TrustedPublisher","LocalMachine"
+          $store = New-Object System.Security.Cryptography.X509Certificates.X509Store "Root","CurrentUser"
           $store.Open("ReadWrite")
           $store.Add($certificate)
           $store.Close()
