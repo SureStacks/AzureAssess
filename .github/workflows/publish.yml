@@ -56,7 +56,7 @@ jobs:
         NUGETAPIKEY: ${{secrets.NUGETAPIKEY}}
       run: | 
         $publishparams = @{
-          Path              = "C:\gallery\AzureAssess"
+          Path              = "C:\gallery\AzureAssess\src"
           NuGetApiKey       = $env:NUGETAPIKEY
           SkipAutomaticTags = $true
           Verbose           = $false
