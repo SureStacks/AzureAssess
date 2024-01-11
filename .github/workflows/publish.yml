@@ -48,6 +48,7 @@ jobs:
         $files = Get-ChildItem C:\gallery\AzureAssess -File -Recurse -Include *.ps1, *.psd1
         foreach($file in $files) {
           Set-AuthenticodeSignature -FilePath $file.FullName -HashAlgorithm SHA256 -Certificate $certificate -TimestampServer http://timestamp.digicert.com
+          $error
         }
     
     - name: Publish
