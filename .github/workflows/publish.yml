@@ -61,5 +61,5 @@ jobs:
           Verbose           = $false
           Whatif            = $false
         }
-        Module-Publish @publishparams
+        Publish-Module @publishparams
       
