@@ -1,5 +1,8 @@
 # Azure Assess Module
 
+![PSGallery Version](https://img.shields.io/powershellgallery/v/AzureAssess.svg?style=flat&logo=powershell&label=PSGallery%20Version)](https://www.powershellgallery.com/packages/AzureAssess [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/AzureAssess.svg?style=flat&logo=powershell&label=PSGallery%20Downloads)](https://www.powershellgallery.com/packages/AzureAssess) [![PSGallery Platform](https://img.shields.io/powershellgallery/p/AzureAssess.svg?style=flat&logo=powershell&label=PSGallery%20Platform)](https://www.powershellgallery.com/packages/AzureAssess)
+
+
 Welcome to the Azure Assess Module! This powerful tool is designed to enhance your Azure security assessment process. With minimal access permissions, you can gain a comprehensive understanding of your Azure resources and their security configurations. Ideal for diverse operations teams and tech-savvy management, this module is easy to use and provides valuable insights. Give it a try and see how it can transform your Azure security assessment process!
 
 Please note that to collect the data, you'll need an account with access to the Azure resources you want to report on. Once the data is collected, you can review and share the information with others who may not have such access, such as larger operational teams or interested management personnel.
