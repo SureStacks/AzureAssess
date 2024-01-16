@@ -9,7 +9,7 @@ defaults:
 jobs:
   publish:
     # only windows can sign using powershell
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
@@ -33,24 +33,13 @@ jobs:
           git push
         
     - name: Sign
-      env:
-        CERTPASS: ${{secrets.CERTPASS}}
-        SIGNCERT: ${{secrets.SIGNCERT}}
       run: |
         # Perpare output directory
         $null = New-Item -Type Directory -Path C:\gallery\AzureAssess
         # Copy scripts
         Copy-Item -Path .\src -Destination C:\gallery\AzureAssess -Recurse -Force
         # Get certificate
-        $buffer = [System.Convert]::FromBase64String($env:SIGNCERT)
-        $certificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($buffer, $env:CERTPASS)
-        if ($certificate.Subject -eq $certificate.Issuer) {
-          # self sign - import certificate to trust
-          $store = New-Object System.Security.Cryptography.X509Certificates.X509Store "Root","CurrentUser"
-          $store.Open("ReadWrite")
-          $store.Add($certificate)
-          $store.Close()
-        }
+        $cert=Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
         # Sign files
         $files = Get-ChildItem C:\gallery\AzureAssess -File -Recurse -Include *.ps1, *.psd1
         foreach($file in $files) {
