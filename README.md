@@ -21,7 +21,7 @@ To collect data you can follow the bellow script
 ```powershell
 Import-Module AzureAssess
 Connect-AzureAssess
-Get-AzureAsessResources -ManagementGroupNames <managementgroupnames>
+Get-AzureAssessResources -ManagementGroupNames <managementgroupnames>
 Resolve-AzureAssessPrivilegedIdentities
 ```
 
