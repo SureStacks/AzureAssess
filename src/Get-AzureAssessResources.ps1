@@ -230,7 +230,7 @@ function Get-AzureAssessResources() {
         }
         if ($ResourceType -eq "roles") {
             # Get all role assignements and export to csv
-            Get-AzureAssessPrivilegedRoleAssginments -SubscriptionId $SubscriptionId -ResourceGroupName $ResourceGroupName | Export-Csv -Path $roleassignmentscsv -NoTypeInformation -Append
+            Get-AzureAssessPrivilegedRoleAssignments -SubscriptionId $SubscriptionId -ResourceGroupName $ResourceGroupName | Export-Csv -Path $roleassignmentscsv -NoTypeInformation -Append
         }
         # Get all Defender for cloud recommendations
         Get-AzureAssessResSecurityRecommendations -SubscriptionId $SubscriptionId -ResourceGroupName $ResourceGroupName -ResourceType $ResourceType | Export-Csv -Path $securityrecommendationscsv -NoTypeInformation -Append

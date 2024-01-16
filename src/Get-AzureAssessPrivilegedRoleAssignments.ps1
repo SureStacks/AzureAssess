@@ -9,7 +9,7 @@ $privilgedRoles = @{}
 $managementGroupNames = @{}
 $subscriptionNames = @{}
 
-function Get-AzureAssessPrivilegedRoleAssginments {
+function Get-AzureAssessPrivilegedRoleAssignments {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Position = 1)]
