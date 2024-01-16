@@ -16,6 +16,11 @@ The goal of this project is to provide portable information on Azure Security. T
 
 ## Data Collection
 
+⚠️ You'll need the following roles to execute the script:
+* Permission to read the resources you want to assess: tipically the "Reader" role on the subscriptions or resource groups
+* Permission to read the data on the identities you want to collect included the permission to read reports as the last signing requires it:  "Global Reader".
+* Last Sign-ins to Azure are collected trough log analytics: read on the log analytics recivieng Sign-in logs, Service principal sign-in logs and managed identities sign-in logs is needed both for interactive and non interactive.
+
 To collect data you can follow the bellow script
 
 ```powershell
