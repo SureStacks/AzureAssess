@@ -50,7 +50,7 @@ function Get-AzureAssessResVirtualMachines() {
         if ($hasfirewallrules -eq $false) {
             $opensshorrdp = $true
         } elseif ($publicnetworkaccess) {
-            $nsgs = @($vmnics | ForEach-Object { Get-AzNetworkSecurityGroup -Name @($_.NetworkSecurityGroup.Id -split "/")[8]})
+            $nsgs = @($vmnics | Where-Object { ![string]::IsNullOrEmpty($_.NetworkSecurityGroup.Id) } | ForEach-Object { Get-AzNetworkSecurityGroup -Name @($_.NetworkSecurityGroup.Id -split "/")[8]})
             foreach($nsg in $nsgs) {
                 # check that the last inbound rule blocks all
                 $lastinbound =  $nsg.DefaultSecurityRules + $nsg.SecurityRules `
