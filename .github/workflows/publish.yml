@@ -46,5 +46,8 @@ jobs:
       env:
         NUGETAPIKEY: ${{secrets.NUGETAPIKEY}}
       run: | 
-        Publish-Module -Path ./src -NugetApiKey $env:NUGETAPIKEY
+        # move repertory to match the module name
+        Move-Item -Path ./src -Destination ./AzureAssess
+        # publish the module
+        Publish-Module -Path ./AzureAssess -NugetApiKey $env:NUGETAPIKEY
       
