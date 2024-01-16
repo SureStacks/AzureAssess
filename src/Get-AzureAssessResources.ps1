@@ -180,14 +180,14 @@ function Get-AzureAssessResources() {
             if ($jobs.Count -ge 20) {
                 $cnt += $jobs.Count
                 $collections += $jobs | wait-job | Receive-Job | Where-Object {($_.StatusCode -eq 200 -and $_.Content -ne "{`"value`":[]}")} | ForEach-Object { ($_.Content | convertfrom-json).Value[0].id  } | Select-Object @{N="SubscriptionId";E={($_ -split "/")[2]}},@{N="ResourceGroupName";E={($_ -split "/")[4]}},@{N="ResourceType";E={($_ -split "/")[6..7] -join "/"}}
-                Write-Progress -Activity "checking ressources collection" -Status "$cnt of $($ResourceTypes.Count * $ResourceGroupInfos.Count)" -PercentComplete (($cnt / ($ResourceTypes.Count * $ResourceGroupInfos.Count))*100)
+                Write-Progress -Activity "checking resources collection" -Status "$cnt of $($ResourceTypes.Count * $ResourceGroupInfos.Count)" -PercentComplete (($cnt / ($ResourceTypes.Count * $ResourceGroupInfos.Count))*100)
                 $jobs = @()
             }
         }
     }
     $cnt += $jobs.Count
     $collections += $jobs | wait-job | Receive-Job | Where-Object {($_.StatusCode -eq 200 -and $_.Content -ne "{`"value`":[]}")} | ForEach-Object { ($_.Content | convertfrom-json).Value[0].id  } | Select-Object @{N="SubscriptionId";E={($_ -split "/")[2]}},@{N="ResourceGroupName";E={($_ -split "/")[4]}},@{N="ResourceType";E={($_ -split "/")[6..7] -join "/"}}
-    Write-Progress -Activity "checking ressources collection" -Status "$cnt of $($ResourceTypes.Count * $ResourceGroupInfos.Count)" -PercentComplete (($cnt / ($ResourceTypes.Count * $ResourceGroupInfos.Count))*100)
+    Write-Progress -Activity "checking resources collection" -Status "$cnt of $($ResourceTypes.Count * $ResourceGroupInfos.Count)" -PercentComplete (($cnt / ($ResourceTypes.Count * $ResourceGroupInfos.Count))*100)
     
     # adding role assignement to the collections
     $collections += $resourcegroupinfos | Select-Object SubscriptionId,@{N="ResourceGroupName";E={$_.Name}},@{N="ResourceType";E={"roles"}}
@@ -234,7 +234,7 @@ function Get-AzureAssessResources() {
         }
         # Get all Defender for cloud recommendations
         Get-AzureAssessResSecurityRecommendations -SubscriptionId $SubscriptionId -ResourceGroupName $ResourceGroupName -ResourceType $ResourceType | Export-Csv -Path $securityrecommendationscsv -NoTypeInformation -Append
-        Write-Progress -Activity "Collecting ressources" -Status "$colid of $($collections.Count)" -PercentComplete ($colid / $collections.Count * 100)
+        Write-Progress -Activity "Collecting resources" -Status "$colid of $($collections.Count)" -PercentComplete ($colid / $collections.Count * 100)
     }
 
     # Add information about private endpoints
