@@ -164,7 +164,7 @@ PrivateData = @{
         LicenseUri = 'https://raw.githubusercontent.com/SureStacks/AzureAssess/main/LICENSE.md'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://raw.githubusercontent.com/SureStacks/AzureAssess'
+        ProjectUri = 'https://github.com/SureStacks/AzureAssess'
 
         # A URL to an icon representing this module.
         # IconUri = ''
