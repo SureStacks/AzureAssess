@@ -130,7 +130,6 @@ FunctionsToExport = @(
     "Join-AzureAssessPrivateEndpoints"
     "Resolve-AzureAssessPrivilegedIdentities"
     "Get-AzureAssessResSecurityRecommendations"
-    "Invoke-RetryCommand"
     "Get-AzureAssessResVirtualMachines"
 )
 
