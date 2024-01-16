@@ -161,10 +161,10 @@ PrivateData = @{
         # Tags = @()
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://raw.githubusercontent.com/SureStacks/AzureAssess/main/LICENSE.md'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://raw.githubusercontent.com/SureStacks/AzureAssess'
 
         # A URL to an icon representing this module.
         # IconUri = ''
