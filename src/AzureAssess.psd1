@@ -27,10 +27,10 @@ Author = 'Cedric Blomart'
 CompanyName = 'SureStacks'
 
 # Copyright statement for this module
-Copyright = '(c) Cedric Blomart. All rights reserved.'
+Copyright = '(c) 2024 SureStacks. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Explore Azure Assess, an open-source tool offering key insights into your Azure environment. Enhance security, understand network status, and streamline role assignments effortlessly for a more confident cloud experience.'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
