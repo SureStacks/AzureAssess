@@ -34,14 +34,10 @@ jobs:
         
     - name: Sign
       run: |
-        # Perpare output directory
-        $null = New-Item -Type Directory -Path C:\gallery\AzureAssess
-        # Copy scripts
-        Copy-Item -Path .\src -Destination C:\gallery\AzureAssess -Recurse -Force
         # Get certificate
         $cert=Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
         # Sign files
-        $files = Get-ChildItem C:\gallery\AzureAssess -File -Recurse -Include *.ps1, *.psd1
+        $files = Get-ChildItem ./src -File -Recurse -Include *.ps1, *.psd1
         foreach($file in $files) {
           Set-AuthenticodeSignature -FilePath $file.FullName -HashAlgorithm SHA256 -Certificate $cert
         }
