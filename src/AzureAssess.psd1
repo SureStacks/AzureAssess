@@ -15,7 +15,7 @@
 ModuleVersion = '0.1.21'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Core')
 
 # ID used to uniquely identify this module
 GUID = 'eb05fd3b-06ca-4e9b-97c8-1abb41727216'
@@ -157,7 +157,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('SureStacks', 'Azure', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
 
         # A URL to the license for this module.
         LicenseUri = 'https://raw.githubusercontent.com/SureStacks/AzureAssess/main/LICENSE.md'
