@@ -79,6 +79,10 @@ RequiredModules = @(
     @{
         ModuleName = "Az.Compute",
         ModuleVersion = "7.1.0"
+    },
+    @{       
+        ModuleName = "Az.Storage", 
+        ModuleVersion="6.0.1"
     }
 )
 
