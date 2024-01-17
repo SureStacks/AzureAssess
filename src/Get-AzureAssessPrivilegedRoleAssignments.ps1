@@ -39,7 +39,7 @@ function Get-AzureAssessPrivilegedRoleAssignments {
     }
     # returned columns
     # roleId,role,principalId,principalType,scope,source,resourceType,resourceName
-    $assignments = @($res.Content | ConvertFrom-Json | Select-Object -ExpandProperty value | Select-Object -ExpandProperty properties `
+    $assignments = @(,$res.Content | ConvertFrom-Json | Select-Object -ExpandProperty value | Select-Object -ExpandProperty properties `
         | Where-Object { ($_.roleDefinitionId -split "/")[-1] -in $privilgedRoles.Keys } `
         | Select-Object `
             @{N="roleId";E={($_.roleDefinitionId -split "/")[-1]}}, `
