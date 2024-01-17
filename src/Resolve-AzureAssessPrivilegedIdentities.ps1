@@ -87,7 +87,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
             }
             $count += 1
         }
-        Write-Progress -Activity "Getting Memberships" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / $($count + $queries.Count))
+        Write-Progress -Activity "Getting Memberships" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / ($count + $queries.Count))
     }
 
     # list of ownerships
@@ -137,7 +137,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
             }
             $count += 1
         }
-        Write-Progress -Activity "Getting Group Owners" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / $($count + $queries.Count))
+        Write-Progress -Activity "Getting Group Owners" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / ($count + $queries.Count))
     }
 
 
@@ -250,7 +250,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
         $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queries.Push($_.id) } 
         # fill in responses
         $resp.responses | Where-Object { [int]($_.status/100) -eq 2 } | ForEach-Object{ $count += 1; $_.body } | Select-Object id,displayName,mailEnabled,securityEnabled,onPremisesSyncEnabled | Export-Csv -Path $groupscsv -NoTypeInformation -Append
-        Write-Progress -Activity "Getting Groups" -Status "$count of $($count + $queries.Count)"
+        Write-Progress -Activity "Getting Groups" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / ($count + $queries.Count))
     }
 
     # check service principals details
@@ -296,7 +296,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
                 @{N="lastAzureSignIn";E={$null}}, `
                 @{N="lastSignIn";E={$null}} `
             | ForEach-Object { $serviceprincipals[$_.appId] = $_}
-        Write-Progress -Activity "Getting ServicePrincipals" -Status "$count of $($count + $queries.Count)"
+        Write-Progress -Activity "Getting ServicePrincipals" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / ($count + $queries.Count))
     }
 
     # get app infromations
@@ -328,7 +328,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
                 $serviceprincipals[$_.appId].validPasswordCredentials += $_.validPasswordCredentials
                 $serviceprincipals[$_.appId].federatedIdentityCredentials += $_.federatedIdentityCredentials
             }
-        Write-Progress -Activity "Getting Applications" -Status "$count of $($count + $appqueries.Count)"
+        Write-Progress -Activity "Getting Applications" -Status "$count of $($count + $appqueries.Count)" -PercentComplete ($count * 100 / ($count + $appqueries.Count))
     }
     
     # check user details
@@ -367,7 +367,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
             @{N="onPremisesSyncEnabled";E={$_.onPremisesSyncEnabled -eq $true}}, `
             @{N="lastSignIn";E={$_.signInActivity.lastSuccessfulSignInDateTime}}, `
             @{N="lastAzureSignIn";E={$_.signInActivity.lastSuccessfulSignInDateTime}}
-        Write-Progress -Activity "Getting Users" -Status "$count of $($count + $queries.Count)"
+        Write-Progress -Activity "Getting Users" -Status "$count of $($count + $queries.Count)" -PercentComplete ($count * 100 / ($count + $queries.Count))
     }
 
 
