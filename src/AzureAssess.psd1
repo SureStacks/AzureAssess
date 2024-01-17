@@ -75,6 +75,10 @@ RequiredModules = @(
     @{
         ModuleName = "Az.OperationalInsights"
         ModuleVersion = "3.2.0"
+    },
+    @{
+        ModuleName = "Az.Compute",
+        ModuleVersion = "7.1.0"
     }
 )
 

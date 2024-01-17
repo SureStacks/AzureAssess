@@ -39,7 +39,7 @@ function Get-AzureAssessPrivilegedRoleAssignments {
     }
     # returned columns
     # roleId,role,principalId,principalType,scope,source,resourceType,resourceName
-    $assignments = $res.Content | ConvertFrom-Json | Select-Object -ExpandProperty value | Select-Object -ExpandProperty properties `
+    $assignments = @($res.Content | ConvertFrom-Json | Select-Object -ExpandProperty value | Select-Object -ExpandProperty properties `
         | Where-Object { ($_.roleDefinitionId -split "/")[-1] -in $privilgedRoles.Keys } `
         | Select-Object `
             @{N="roleId";E={($_.roleDefinitionId -split "/")[-1]}}, `
@@ -50,7 +50,7 @@ function Get-AzureAssessPrivilegedRoleAssignments {
             @{N="source";E={"RBAC"}}, `
             @{N="resourceType";E={""}}, `
             @{N="resourceName";E={($_.scope -split "/")[-1]}}, `
-            @{N="link";E={"https://portal.azure.com/#@$($context.Tenant.Id)/resource$($_.scope)/users"}}
+            @{N="link";E={"https://portal.azure.com/#@$($context.Tenant.Id)/resource$($_.scope)/users"}})
     # expand columns
     foreach($assignment in $assignments) {
         $assignment.role = $script:privilgedRoles[$assignment.roleId]
