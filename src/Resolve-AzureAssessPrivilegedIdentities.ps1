@@ -112,7 +112,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
             Start-Sleep -Seconds 5
         }
         # requeue get failed requests
-        $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queues.Push($_.id) }
+        $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queries.Push($_.id) }
         # parse successfull responses
         $successresps = $resp.responses | Where-Object { [int]($_.status/100) -eq 2 }
         # fill in responses
@@ -162,7 +162,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
         # add requests havint returned not found to the counter
         $count += ($resp.responses | Where-Object { $_.status -eq 404 }).Count
         # requeue get failed requests
-        $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queues.Push($_.id) }
+        $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queries.Push($_.id) }
         # parse successfull responses
         $successresps = $resp.responses | Where-Object { [int]($_.status/100) -eq 2 }
         # fill in responses
