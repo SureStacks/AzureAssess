@@ -146,8 +146,7 @@ function Resolve-AzureAssessPrivilegedIdentities {
     $queries = New-Object -TypeName System.Collections.Stack
     $privIdentities.Values | Where-Object { $_.principalType -eq "ServicePrincipal" } | ForEach-Object { $queries.Push($_.principalId)}
     $count = 0
-    while ($queries.Count -gt 0) {
-        $requests = @()
+    while ($queries.Count -gt 0) {$requests = @()
         while($requests.Count -lt 20 -and $queries.Count -gt 0) {
             $requests += $queries.Pop() | select-object @{N="id"; E={$_}},@{N="method";E={"GET"}},@{N="url"; E={"/servicePrincipals/$($_)/owners?`$top=999&`$select=id"}}
         }
@@ -159,8 +158,8 @@ function Resolve-AzureAssessPrivilegedIdentities {
         } else {
             Start-Sleep -Seconds 5
         }
-        # count not found \_o_/ 
-        $count+=$resp.responses | Where-Object { $_.status -eq 404}).Count
+        # add requests havint returned not found to the counter
+        $count += ($resp.responses | Where-Object { $_.status -eq 404 }).Count
         # requeue get failed requests
         $resp.responses | Where-Object { [int]($_.status/100) -ne 2 -and $_.status -ne 404} | ForEach-Object { $queues.Push($_.id) }
         # parse successfull responses
