@@ -27,7 +27,20 @@ The goal of this project is to provide portable information on Azure Security. T
 
 To collect data you can follow the bellow script
 
-
+```powershell
+# install the powershell module
+PS> Install-Module -Name AzureAssess
+# connect to Azure - leverages Connect-AzAccount
+PS> Connect-AzureAssess
+# Collect information about management groups
+PS> Get-AzureAssessResources -ManagementGroupNames <management groups>
+# *Or* collect information about a subscription
+PS> Get-AzureAssessResources -SubscriptionId <subscription id>
+# *Or* collect information about a resource group
+PS> Get-AzureAssessResources -SubscriptionId <subscription id> -ResourceGroupName <resource group name>
+# Get information about role assignments
+PS> Resolve-AzureAssessPrivilegedIdentities
+```
 
 This will give you the set of CSV that can be loaded into PowerBI template [``./assets/AzureResources.pbit``](./assets/Azyreresources.pbit)
 
