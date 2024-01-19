@@ -1,0 +1,30 @@
+name: "Close stale issues"
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issue-message: 'This issue is stale because it has been open 40 days with no activity.'
+          stale-pr-message: 'This pull request is stale because it has been open 40 days with no activity.'
+          days-before-stale: 40
+          days-before-close: 20
+          stale-issue-label: stale
+          stale-pr-label: stale
+          exempt-issue-labels: 'awaiting-response, enhancement'
+          exempt-pr-labels: 'awaiting-response, enhancement'
+          close-issue-message: 'This issue was closed because it has been open 60 days with no activity.'
+          close-pr-message: 'This pull request was closed because it has been open 60 days with no activity.'
+      - name: Toggle label
+        uses: jd-0001/gh-action-toggle-awaiting-reply-label@v2.1.2
+        with:
+          label: awaiting-response
