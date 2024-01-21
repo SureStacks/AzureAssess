@@ -31,7 +31,7 @@ jobs:
         with:
           label: awaiting-response
       - name: ChatGPT first answers
-        uses: surestacks/chatgpt-buttler@v1
+        uses: surestacks/chatgpt-butler@v1
         with:
           only-labels: question, enhancement
           prompt-preamble: |
