@@ -2,17 +2,18 @@ name: "Close stale issues"
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "2 3,9,15,21 * * *"
 
 permissions:
   issues: write
   pull-requests: write
 
 jobs:
-  stale:
+  handle-issues:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v9
+      - name: Close stale issues and PRs
+        uses: actions/stale@v9
         with:
           stale-issue-message: 'This issue is stale because it has been open 40 days with no activity.'
           stale-pr-message: 'This pull request is stale because it has been open 40 days with no activity.'
@@ -28,3 +29,17 @@ jobs:
         uses: jd-0001/gh-action-toggle-awaiting-reply-label@v2.1.2
         with:
           label: awaiting-response
+      - name: ChatGPT first answers
+        uses: surestacks/chatgpt-buttler@v0
+        with:
+          only-labels: question, enhancement
+          prompt-preamble: |
+            I’ve received a user question about my AzureAssess PowerShell Module. Please check its clarity and completeness. If it’s a simple question and you have an answer, provide it considering common PowerShell issues. Your response will be posted directly on GitHub. Remember to:
+            * Address the user directly.
+            * Assume the user has technical knowledge.
+            * Be concise and friendly.
+            * Mention you’re an AI assistant helping with GitHub issues.
+            Here’s the user’s question:
+          openai-key: ${{ secrets.OPENAI_KEY }}
+
+
