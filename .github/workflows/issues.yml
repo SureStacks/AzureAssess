@@ -3,6 +3,7 @@ name: "Close stale issues"
 on:
   schedule:
     - cron: "2 3,9,15,21 * * *"
+  workflow_dispatch:
 
 permissions:
   issues: write
