@@ -37,7 +37,8 @@ function Get-AzureAssessResVirtualMachines() {
             | ForEach-Object { Get-AzNetworkInterface -ResourceId $_.Id } `
             | Where-Object { @($_.IpConfigurations | ForEach-Object { $_.PublicIpAddress | Where-Object {$null -ne $_}}).Count -gt 0 })
         $publicnetworkaccess = $nics.Count -gt 0
-        $publicipaddress = @($nics | ForEach-Object { $_.IpConfigurations } | ForEach-Object { $_.PublicIpAddress | Where-Object {$null -ne $_}})[0]
+        $publicipaddressid = @($nics | ForEach-Object { $_.IpConfigurations } | ForEach-Object { $_.PublicIpAddress | Where-Object {$null -ne $_}})[0].Id
+        $publicipaddress = Get-AzPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.Id -eq $publicipaddressid } | ForEach-Object { $_.IpAddress }
         # check if nics are associated with a network security group
         $hasfirewallrules = $true
         foreach($nic in $nics) {
