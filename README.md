@@ -25,6 +25,9 @@ The goal of this project is to provide portable information on Azure Security. T
 * Permission to read the data on the identities you want to collect included the permission to read reports as the last signing requires it:  "Global Reader".
 * Last Sign-ins to Azure are collected trough log analytics: read on the log analytics recivieng Sign-in logs, Service principal sign-in logs and managed identities sign-in logs is needed both for interactive and non interactive.
 
+
+⚠️ The script currently doesn't support nested management groups (i.e. collecting from the root management group). To circumvent the limitation you can provide multiple management group names while collecting data. The module expects that management groups to have subscriptions.
+
 To collect data you can follow the bellow script
 
 ```powershell
